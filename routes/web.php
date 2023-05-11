@@ -29,7 +29,7 @@ Route::get('/', function () {
 });
 
 Route::post('/task', [TaskController::class, 'send']);
-Route::get('/task', [TaskController::class, 'index']);
+Route::get('/', [TaskController::class, 'index']);
 
 Route::get('/', [TaskCRUDController::class, 'index']);
 

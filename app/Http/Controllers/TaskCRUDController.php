@@ -28,4 +28,11 @@ class TaskCRUDController extends Controller
 
         return redirect()->back();
     }
+
+    /* public function deletetask(Request $request)
+    {
+        $task_id = $request->task_id;
+        DB::table('tasks')->where('id', $task_id)->delete();
+        return response()->json(['success' => 'Task deleted successfully']);
+    } */
 }
