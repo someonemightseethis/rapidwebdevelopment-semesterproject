@@ -16,17 +16,17 @@
         </div>
 
         <div class="py-10 px-80">
-            <form method=" POST" action="{{ url('/') }}/task" class="">
+            <form method="POST" action="{{ url('/') }}/task" class="">
                 @csrf
                 <div class="rounded-xl shadow-md lg:shadow-lg px-16 py-12 bg-[#292C6D]">
                     <div class="relative z-0 py-2">
-                        <label class="text-[#FAEDF0] text-xl" htmlFor="title">
+                        <label htmlFor="title" class="text-[#FAEDF0] text-xl">
                             Title
                         </label>
-                        <input type="text" name="title" class="mb-3 mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-md text-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EC255A] focus:ring-1 focus:ring-[#EC255A] text-[#161853]" placeholder="" id="title" required />
+                        <input type="text" name="title" placeholder="" id="title" class="mb-3 mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-md text-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EC255A] focus:ring-1 focus:ring-[#EC255A] text-[#161853]" required />
                     </div>
                     <div class="relative z-0 py-2">
-                        <label class="text-[#FAEDF0] text-xl" htmlFor="task">
+                        <label htmlFor="task" class="text-[#FAEDF0] text-xl">
                             Task
                         </label>
                         <textarea name="task" id="task" cols="10" rows="5" placeholder="enter the task.." class="mb-3 mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-md text-md shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EC255A] focus:ring-1 focus:ring-[#EC255A] text-[#161853]" required></textarea>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="py-10 grid grid-cols-3">
-            @foreach ($tasks as $task)
+            @foreach($tasks as $task)
             <div class="text-[#161853] px-2 py-4">
                 <div class="max-w-sm overflow-hidden rounded-xl bg-[#FAEDF0] shadow-md duration-300 hover:scale-105 hover:shadow-xl border-[#292C6D] border-2">
                     <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'>
