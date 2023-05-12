@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Task;
 
 class TaskCRUDController extends Controller
 {
@@ -27,6 +28,24 @@ class TaskCRUDController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function edit($id)
+    {
+        $task = Task::findOrFail($id);
+        return view('taskedit', compact('task'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->title = $request->input('title');
+        $task->task = $request->input('task');
+        $task->save();
+
+        $tasks = Task::all();
+
+        return view('home', ['tasks' => $tasks]);
     }
 
     /* public function deletetask(Request $request)

@@ -35,6 +35,9 @@ Route::get('/', [TaskCRUDController::class, 'index']);
 
 Route::delete('/tasks/{id}', [TaskCRUDController::class, 'destroy'])->name('tasks.delete');
 
+Route::get('records/{id}/edit', [TaskCRUDController::class, 'edit'])->name('task.edit');
+Route::put('records/{id}', [TaskCRUDController::class, 'update'])->name('task.update');
+
 /* Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

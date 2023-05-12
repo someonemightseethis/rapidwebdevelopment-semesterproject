@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-[#E4DCCF] font-['BlinkMacSystemFont']">
-    <div class=" items-center justify-center px-28 py-12">
+    <div class=" items-center justify-center px-28">
         <!-- <div class="py-6">
             <h1 class="text-6xl text-[#002B5B]">task manager</h1>
         </div> -->
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="text-center py-4">
-                        <button type="submit" name="submit" class="px-6 py-1.5 rounded-md bg-[#002B5B] text-[#E4DCCF] hover:bg-[#EA5455] text-md">
+                        <button type="submit" name="submit" class="px-6 py-1.5 rounded-md bg-[#002B5B] text-[#E4DCCF] hover:bg-[#EA5455] text-md hover:bg-opacity-95">
                             Add Task
                         </button>
                     </div>
@@ -49,9 +49,9 @@
 
         <div class="py-10 grid grid-cols-3">
             @foreach($tasks as $task)
-            <div class="text-[#E4DCCF] px-4 py-6">
-                <div class="max-w-sm overflow-hidden card cursor-pointer border-[#002B5B] border-2 rounded-lg hover:shadow-lg transform hover:-translate-y-1 transition-transform duration-300 bg-[#002B5B]">
-                    <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg' class="h-20">
+            <div class="text-[#E4DCCF] px-2 py-2">
+                <div class=" max-w-md overflow-hidden border-[#002B5B] border-2 rounded-lg hover:shadow-lg transform hover:-translate-y-2 transition-transform duration-300 bg-[#002B5B] group">
+                    <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg' class="h-20 opacity-95 group-hover:opacity-100">
                         <defs>
                             <pattern id='a' patternUnits='userSpaceOnUse' width='40' height='69.282' patternTransform='scale(1.54) rotate(130)'>
                                 <rect x='0' y='0' width='100%' height='100%' fill='#002B5B' />
@@ -60,23 +60,40 @@
                         </defs>
                         <rect width='800%' height='800%' transform='translate(-10,0)' fill='url(#a)' />
                     </svg>
-                    <div class="py-4 px-6">
+                    <div class="py-2 px-6">
                         <h2 class="text-2xl text-center underline underline-offset-8">{{ $task->title }}</h2>
                         <div class="py-6 px-2 font-mono">
                             <p class="text-sm">{{ $task->task }}</p>
                         </div>
-                        <div class="flex justify-center items-center">
-                            <form action="{{ $task->delete_url }}" method="POST" id="delete-form-{{ $task->id }}">
+                        <div class="flex justify-end py-2">
+                            <form action="{{ $task->delete_url }}" method="POST" id="delete-form-{{ $task->id }}" class="flex flex-row space-x-4">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="hover:scale-110">
-                                    <svg data-src="https://api.macosicons.com/uploads/cross_with_circle_24px_c051aaae02.svg" id="cross-with-circle" class="icon-image icon-image-24" fill="none" height="24" width="24" xmlns="http://www.w3.org/2000/svg" data-attributes-set="fill,height,width,xmlns" data-rendered="true">
-                                        <g stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <path d="M9 9l6 6m0-6l-6 6" stroke-linejoin="round"></path>
+                                <button type="submit">
+                                    <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="hover:scale-110">
+                                        <g clip-path="url(#clip0_489_191522)">
+                                            <path d="M5 9.5l1.087 8.036c.223 1.65.335 2.476.9 2.97.566.494 1.398.494 3.064.494h3.898c1.666 0 2.499 0 3.064-.494s.677-1.32.9-2.97L19 9.5M9 6c0-.932 0-1.398.152-1.765a2 2 0 0 1 1.083-1.083C10.602 3 11.068 3 12 3c.932 0 1.398 0 1.765.152a2 2 0 0 1 1.083 1.083C15 4.602 15 5.068 15 6m4 0H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                         </g>
+                                        <defs>
+                                            <clipPath id="clip0_489_191522">
+                                                <path fill="currentColor" d="M0 0H24V24H0z"></path>
+                                            </clipPath>
+                                        </defs>
                                     </svg>
                                 </button>
+                                <a href="{{ route('task.edit', ['id' => $task->id]) }}">
+                                    <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="hover:scale-110">
+                                        <g clip-path="url(#clip0_489_191494)">
+                                            <path d="M10.293 12.293a1 1 0 1 0 1.414 1.414l-1.414-1.414zm8.414-5.586L19.414 6 18 4.586l-.707.707 1.414 1.414zm.586-3.414L18.586 4 20 5.414l.707-.707-1.414-1.414zm2.414.414a1 1 0 0 0-1.414-1.414l1.414 1.414zm-10 10l7-7-1.414-1.414-7 7 1.414 1.414zm9-9l1-1-1.414-1.414-1 1 1.414 1.414z" fill="currentColor"></path>
+                                            <path d="M10 7H7c-1.886 0-2.828 0-3.414.586C3 8.172 3 9.114 3 11v6c0 1.886 0 2.828.586 3.414C4.172 21 5.114 21 7 21h6c1.886 0 2.828 0 3.414-.586C17 19.828 17 18.886 17 17v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_489_191494">
+                                                <path fill="currentColor" d="M0 0H24V24H0z"></path>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
                             </form>
                         </div>
                     </div>
