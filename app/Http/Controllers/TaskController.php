@@ -14,9 +14,15 @@ class TaskController extends Controller
     {
         $task = new Task();
         $task->title = $request->input('title');
-        $task->task = $request->input('task');
+        $task->description = $request->input('description');
+        $task->status = 'active'; // default status
+        $task->categoryId = $request->input('categoryId');
+        $task->endDate =
+        $request->input('enddate');
+        $task->startDate =
+        $request->input('startdate');
         $task->save();
 
-        return redirect('/')->with('success', 'Your message has been sent successfully.');
+        return redirect('/')->with('success', 'Your task has been created successfully.');
     }
 }

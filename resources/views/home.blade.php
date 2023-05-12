@@ -26,16 +26,26 @@
                         <!-- <label htmlFor="title" class="text-lg">
                             Title
                         </label> -->
-                        <input type="text" name="title" placeholder="enter task title" id="title" class="mb-3 mt-1 block w-full px-2 py-1.5 border-2 border-[#292C6D] rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EA5455] focus:ring-1 focus:ring-[#EA5455] text-[#002B5B] font-mono bg-[#F9F5EB]" required />
-                        <!-- <label htmlFor="task" class="text-lg">
-                            Task
-                        </label> -->
-                        <textarea name="task" id="task" cols="10" rows="5" placeholder="enter task description" class="mb-3 mt-1 block w-full px-2 py-1.5 border-[#292C6D] border-2 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EA5455] focus:ring-1 focus:ring-[#EA5455] text-[#002B5B] font-mono bg-[#F9F5EB]" maxlength="300" required></textarea>
-                        <!-- <span id="task-counter" class="text-sm text-[#EA5455]">10 characters remaining</span> -->
-                        <div id="character-counter" class="text-sm text-[#EA5455] opacity-80 text-right">
-                            <span id="typed-characters">0</span>
-                            <span>/</span>
-                            <span id="maximum-characters">300</span>
+                        <div class="py-2">
+                            <input type="text" name="title" placeholder="enter task title" id="title" class="mb-3 mt-1 block w-full px-2 py-1.5 border-2 border-[#292C6D] rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EA5455] focus:ring-1 focus:ring-[#EA5455] text-[#002B5B] font-mono bg-[#F9F5EB]" required />
+
+                            <div class="grid grid-cols-2 text-[#002B5B] space-x-4">
+                                <div class="flex items-baseline justify-center space-x-2">
+                                    <label for="startdate" class="text-sm">Start Date</label>
+                                    <input type="date" name="startdate" min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+5 years')) }}" class="mb-3 mt-1 w-fit px-2 py-1.5 border-2 border-[#292C6D] rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EA5455] focus:ring-1 focus:ring-[#EA5455] text-[#002B5B] font-mono bg-[#F9F5EB] object-left" required>
+                                </div>
+                                <div class="flex items-baseline justify-center space-x-2">
+                                    <label for="enddate" class="text-sm">End Date</label>
+                                    <input type="date" name="enddate" min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+5 years')) }}" class="mb-3 mt-1 w-fit px-2 py-1.5 border-2 border-[#292C6D] rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EA5455] focus:ring-1 focus:ring-[#EA5455] text-[#002B5B] font-mono bg-[#F9F5EB] object-right" required>
+                                </div>
+                            </div>
+
+                            <textarea name="description" id="description" cols="10" rows="5" placeholder="enter task description" class="mb-3 mt-1 block w-full px-2 py-1.5 border-[#292C6D] border-2 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#EA5455] focus:ring-1 focus:ring-[#EA5455] text-[#002B5B] font-mono bg-[#F9F5EB]" maxlength="300" required></textarea>
+                            <div id="character-counter" class="text-sm text-[#EA5455] opacity-80 text-right">
+                                <span id="typed-characters">0</span>
+                                <span>/</span>
+                                <span id="maximum-characters">300</span>
+                            </div>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -51,7 +61,7 @@
             @foreach($tasks as $task)
             <div class="text-[#E4DCCF] px-2 py-2">
                 <div class=" max-w-md overflow-hidden border-[#002B5B] border-2 rounded-lg hover:shadow-lg transform hover:-translate-y-2 transition-transform duration-300 bg-[#002B5B] group">
-                    <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg' class="h-20 opacity-95 group-hover:opacity-100">
+                    <svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg' class="h-20 opacity-90 group-hover:opacity-100">
                         <defs>
                             <pattern id='a' patternUnits='userSpaceOnUse' width='40' height='69.282' patternTransform='scale(1.54) rotate(130)'>
                                 <rect x='0' y='0' width='100%' height='100%' fill='#002B5B' />
@@ -62,8 +72,19 @@
                     </svg>
                     <div class="py-2 px-6">
                         <h2 class="text-2xl text-center underline underline-offset-8">{{ $task->title }}</h2>
-                        <div class="py-6 px-2 font-mono">
-                            <p class="text-sm">{{ $task->task }}</p>
+                        <div class="flex justify-center space-x-4 py-4">
+                            <p class="flex justify-center font-mono text-xs">status: {{ $task->status }}</p>
+                            <p class="flex justify-center font-mono text-xs">|</p>
+                            <p class="flex justify-center font-mono text-xs">created at: {{ date('d-m-Y', strtotime($task->createdAt)) }}</p>
+                        </div>
+                        <div class="py-4 px-2 font-mono">
+                            <p class="text-sm">{{ $task->description }}</p>
+                        </div>
+                        <hr class="border-[#EA5455] mx-6">
+                        <div class="flex justify-center space-x-4 py-2">
+                            <p class="flex justify-center font-mono text-xs">start date: {{ date('d-m-Y', strtotime($task->startDate)) }}</p>
+                            <p class="flex justify-center font-mono text-xs">|</p>
+                            <p class="flex justify-center font-mono text-xs">end date: {{ date('d-m-Y', strtotime($task->endDate)) }}</p>
                         </div>
                         <div class="flex justify-end py-2">
                             <form action="{{ $task->delete_url }}" method="POST" id="delete-form-{{ $task->id }}" class="flex flex-row space-x-4">
@@ -76,7 +97,7 @@
                                         </g>
                                         <defs>
                                             <clipPath id="clip0_489_191522">
-                                                <path fill="currentColor" d="M0 0H24V24H0z"></path>
+                                                <path fill="" d="M0 0H24V24H0z"></path>
                                             </clipPath>
                                         </defs>
                                     </svg>
@@ -104,7 +125,7 @@
     </div>
 
     <script>
-        const textAreaElement = document.querySelector("#task");
+        const textAreaElement = document.querySelector("#description");
         const characterCounterElement = document.querySelector("#character-counter");
         const typedCharactersElement = document.querySelector("#typed-characters");
         const maximumCharacters = 300;

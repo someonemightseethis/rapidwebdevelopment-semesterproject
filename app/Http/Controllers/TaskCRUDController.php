@@ -40,7 +40,7 @@ class TaskCRUDController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->title = $request->input('title');
-        $task->task = $request->input('task');
+        $task->description = $request->input('description');
         $task->save();
 
         $tasks = Task::all();
