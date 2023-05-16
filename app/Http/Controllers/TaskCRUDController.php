@@ -45,7 +45,7 @@ class TaskCRUDController extends Controller
 
         $tasks = Task::all();
 
-        return view('home', ['tasks' => $tasks]);
+        return redirect('/');
     }
 
     /* public function deletetask(Request $request)

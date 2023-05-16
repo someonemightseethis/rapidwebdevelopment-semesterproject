@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('status');
             $table->timestamp('createdAt')->useCurrent();
             $table->unsignedBigInteger('createdBy');
+            $table->foreign('createdBy')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('categoryId')->nullable();
             $table->foreign('categoryId')->references('id')->on('categories')->onDelete('set null');
             $table->timestamp('endDate')->nullable();
