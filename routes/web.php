@@ -7,6 +7,8 @@ use App\Models\Task;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,11 @@ use Inertia\Inertia;
 }); */
 
 Route::get('/', function () {
-    return view('home');
+    if (auth()->check()) {
+        return redirect()->route('home');
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::get('/login', function () {
@@ -43,8 +49,24 @@ Route::get('/', [TaskCRUDController::class, 'index']);
 
 Route::delete('/tasks/{id}', [TaskCRUDController::class, 'destroy'])->name('tasks.delete');
 
+//record update routes
+
 Route::get('records/{id}/edit', [TaskCRUDController::class, 'edit'])->name('task.edit');
 Route::put('records/{id}', [TaskCRUDController::class, 'update'])->name('task.update');
+
+//login routes
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+//signup routes
+
+Route::get('/signup', [AuthController::class, 'showSignupForm'])->name('signup');
+Route::post('/signup', [AuthController::class, 'signup'])->name('signup.post');
+
+//logout route
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /* Route::get('/', function () {
     return Inertia::render('Welcome', [

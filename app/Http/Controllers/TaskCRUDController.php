@@ -41,9 +41,9 @@ class TaskCRUDController extends Controller
         $task = Task::findOrFail($id);
         $task->title = $request->input('title');
         $task->description = $request->input('description');
+        $task->endDate = $request->input('enddate');
+        $task->startDate = $request->input('startdate');
         $task->save();
-
-        $tasks = Task::all();
 
         return redirect('/');
     }
