@@ -4,9 +4,11 @@
 
 @keyframes pulse {
   0%, 100% {
-    opacity: .8;
+    opacity: .7;
+    transform: scale(0.95);
   }
   50% {
     opacity: 1;
+    transform: scale(1.02);
   }
 }
