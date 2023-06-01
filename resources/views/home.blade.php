@@ -100,8 +100,11 @@
                     <div class="py-2 px-6">
                         <h2 class="text-xl text-center underline underline-offset-8 decoration-[#EA5455]">{{ $task->title }}</h2>
                         <div class="flex justify-center space-x-2 py-6">
-                            <p class="flex justify-center text-xs">status: {{ $task->status }}</p>
-                            <p class="flex justify-center text-xs text-[#EA5455] opacity-80 group-hover:opacity-100">|</p>
+                            <p class="flex justify-center text-xs">
+                                status:
+                            <p class="@if($task->status === 'Ending Soon') animate-pulse text-[#EA5455] @endif text-xs">{{ $task->status }}</p>
+                            </p>
+                            <p class=" flex justify-center text-xs text-[#EA5455] opacity-80 group-hover:opacity-100">|</p>
                             <p class="flex justify-center text-xs">created at: {{ date('d-m-Y', strtotime($task->createdAt)) }}</p>
                         </div>
                         <div class="pb-4 px-2 font-mono">

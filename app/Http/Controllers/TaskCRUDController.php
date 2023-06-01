@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Carbon\Carbon;
 
 class TaskCRUDController extends Controller
 {
@@ -19,12 +20,30 @@ class TaskCRUDController extends Controller
 
     public function destroy($id)
     {
-        DB::table('tasks')->where('id', $id)->delete();
-        //update
-        //now when i make changes i just need to go to the git extention tab, add a comment and commit
+        $task = Task::find($id);
 
-        if (DB::table('tasks')->count() === 0) {
-            DB::table('tasks')->truncate();
+        if ($task) {
+            $task->delete();
+        }
+
+        $tasks = Task::all();
+
+        foreach ($tasks as $task) {
+            $endDate = Carbon::parse($task->end_date);
+            $currentDate = Carbon::now();
+            $daysUntilEnd = $currentDate->diffInDays($endDate);
+
+            if ($daysUntilEnd <= 2 && $task->status !== 'Completed') {
+                $task->status = 'Ending Soon';
+            } else {
+                $task->status = 'Active';
+            }
+
+            $task->save();
+        }
+
+        if (Task::count() === 0) {
+            Task::truncate();
         }
 
         return redirect()->back();
