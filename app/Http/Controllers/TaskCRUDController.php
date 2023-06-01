@@ -72,7 +72,7 @@ class TaskCRUDController extends Controller
         } else {
             $task->status = 'Active';
         }
-        
+
         $task->save();
 
         return redirect('/');
