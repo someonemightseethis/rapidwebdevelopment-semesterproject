@@ -88,24 +88,6 @@
                 characterCounterElement.classList.replace('opacity-100', 'opacity-80');
             }
         });
-
-        // JavaScript code to toggle dropdown visibility
-        var dropdownButton = document.getElementById('userDropdown');
-        var dropdownMenu = document.querySelector('.dropdown > ul');
-
-        // Show/hide dropdown when the user icon button is clicked
-        dropdownButton.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent the click event from bubbling up
-            dropdownMenu.classList.toggle('hidden');
-        });
-
-        // Hide dropdown when clicking anywhere on the page
-        document.addEventListener('click', function(event) {
-            var targetElement = event.target;
-            if (!dropdownButton.contains(targetElement)) {
-                dropdownMenu.classList.add('hidden');
-            }
-        });
     </script>
 </body>
 

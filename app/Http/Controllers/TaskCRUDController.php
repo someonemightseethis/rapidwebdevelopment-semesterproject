@@ -62,6 +62,17 @@ class TaskCRUDController extends Controller
         $task->description = $request->input('description');
         $task->endDate = $request->input('enddate');
         $task->startDate = $request->input('startdate');
+
+        $endDate = Carbon::parse($request->input('enddate'));
+        $currentDate = Carbon::now();
+        $daysUntilEnd = $currentDate->diffInDays($endDate);
+
+        if ($daysUntilEnd <= 2) {
+            $task->status = 'Ending Soon';
+        } else {
+            $task->status = 'Active';
+        }
+        
         $task->save();
 
         return redirect('/');
